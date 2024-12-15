@@ -16,7 +16,7 @@ int MatrixChainOrder(int p[], int n)
 	for (int i = 1; i < n; i++)
 		dp[i][i] = 0;
 	// Duyệt qua tất cả các độ dài đoạn con L
-	for (int L = 1; L <= n - 1; L++) {
+	for (int L = 1; L < n; L++) {
 		for (int i = 1; i < n - L; i++) {
 			int j = i + L;
 			dp[i][j] = INT_MAX;
@@ -45,7 +45,7 @@ int MatrixChainOrder(int p[], int n)
 // Hàm chính
 int main()
 {
-	int arr[] = {5, 10, 3, 12, 5, 50, 6};
+	int arr[] = {2,25,3,16,1,1000};
 	int size = sizeof(arr) / sizeof(arr[0]);
 
 	cout << "Minimum number of multiplications is: \n"

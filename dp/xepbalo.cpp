@@ -4,9 +4,10 @@ using namespace std;
 
 // Returns the maximum value that
 // can be put in a knapsack of capacity W
-int knapSack(int W, vector<int>& wt, vector<int>& val) {
+int knapSack(int W, vector<int>& wt, vector<int>& val, vector<int>& selectedItems) {
     int n = wt.size();
     vector<vector<int>> dp(n + 1, vector<int>(W + 1));
+
     // Build table dp[][] in bottom-up manner
     for (int i = 0; i <= n; i++) {
         for (int w = 0; w <= W; w++) {
@@ -20,13 +21,13 @@ int knapSack(int W, vector<int>& wt, vector<int>& val) {
         }
     }
 
-    // Print the DP table (optional for debugging)
-    cout << "DP Table:" << endl;
-    for (int i = 0; i <= n; i++) {
-        for (int j = 0; j <= W; j++) {
-            cout << dp[i][j] << " ";
+    // Traceback to find the items included in the knapsack
+    int w = W;
+    for (int i = n; i > 0 && w > 0; i--) {
+        if (dp[i][w] != dp[i - 1][w]) { // Item i-1 is included
+            selectedItems.push_back(i - 1); // Store the index of the selected item
+            w -= wt[i - 1]; // Reduce the remaining capacity
         }
-        cout << endl;
     }
 
     // Return the maximum value that can be obtained with capacity W
@@ -35,9 +36,21 @@ int knapSack(int W, vector<int>& wt, vector<int>& val) {
 
 // Driver Code
 int main() {
-    vector<int> profit = {3,2,3,1,3,2,3,1,3,1};
-    vector<int> weight = {7,9,5,8,9,5,6,7,6,5};
-    int W = 45;
-    cout << "Maximum value in Knapsack = " << knapSack(W, weight, profit) << endl;
+    vector<int> profit = {3, 2, 3, 1, 3, 2, 3, 1, 3, 1};
+    vector<int> weight = {7, 9, 5, 8, 9, 5, 6, 7, 6, 5};
+    int W = 10;
+    vector<int> selectedItems;
+
+    int maxValue = knapSack(W, weight, profit, selectedItems);
+
+    cout << "Maximum value in Knapsack = " << maxValue << endl;
+
+    // Print the selected items
+    cout << "Selected items (0-based index): ";
+    for (int item : selectedItems) {
+        cout << item << " ";
+    }
+    cout << endl;
+
     return 0;
 }

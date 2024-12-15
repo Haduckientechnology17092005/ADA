@@ -39,7 +39,7 @@ vector<double> knapShack(int W, vector<int> &values, vector<int> &weights){
 int main(){
     vector<int> values = {60, 100, 120, 50};
     vector<int> weights = {10, 20, 30, 10};
-    int W = 40; // Trọng lượng tối đa của ba lô
+    int W = 65; // Trọng lượng tối đa của ba lô
     // Gọi hàm xếp ba lô tham lam
     std::vector<double> result = knapShack(W, values, weights);
     // In ra kết quả
