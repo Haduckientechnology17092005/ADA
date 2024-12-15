@@ -29,7 +29,6 @@ int countOptions(int x, int y) {
     }
     return count;
 }
-
 bool diChuyen(int x, int y) {
     ++dem;
     A[x][y] = dem;
@@ -37,7 +36,6 @@ bool diChuyen(int x, int y) {
         xuat();
         return true;
     }
-
     vector<pair<int, pair<int, int>>> moves;
     for (int i = 0; i < 8; i++) {
         int u = x + X[i];
@@ -46,15 +44,12 @@ bool diChuyen(int x, int y) {
             moves.push_back({countOptions(u, v), {u, v}});
         }
     }
-
     sort(moves.begin(), moves.end()); // Ưu tiên bước đi có ít lựa chọn nhất
-
     for (auto move : moves) {
         int u = move.second.first;
         int v = move.second.second;
         if (diChuyen(u, v)) return true;
     }
-
     --dem;
     A[x][y] = 0;
     return false;
